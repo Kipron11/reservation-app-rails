@@ -1,0 +1,106 @@
+<%= form_with(model: reservation) do |form| %>
+  <% if reservation.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+      <ul>
+        <% reservation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% users = User.all %>
+  <% user_arr = users.as_json.map { |user| [user.to_h['name'], user.to_h['user_id']] } %>
+
+  <% transports = Transport.all %>
+  <% transport_arr = transports.as_json.map { |transport| [transport.to_h['name'], transport.to_h['transport_id']] }
+     time_intervals = %w[
+      00:00-01:00
+      01:00-02:00
+      02:00-03:00
+      03:00-04:00
+      04:00-05:00
+      05:00-06:00
+      06:00-07:00
+      07:00-08:00
+      08:00-09:00
+      09:00-10:00
+      10:00-11:00
+      11:00-12:00
+      12:00-13:00
+      13:00-14:00
+      14:00-15:00
+      15:00-16:00
+      16:00-17:00
+      17:00-18:00
+      18:00-19:00
+      19:00-20:00
+      20:00-21:00
+      21:00-22:00
+      22:00-23:00
+      23:00-00:00
+    ]
+
+  %>
+
+
+
+  <div class="card " style="width: 40rem;">
+
+    <div class="dropdown container">
+      <%= form.label :user_id, style: "display: block" %>
+      <%= form.select :user_id, user_arr, class: "btn btn-secondary dropdown-toggle" %>
+    </div>
+
+    <div class="dropdown container">
+      <%= form.label :transport_id, style: "display: block" %>
+      <%= form.select :transport_id, transport_arr, class: "btn" %>
+    </div>
+
+    <p class="container">Laiks</p>
+
+    <div class="card-body" style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 5px;">
+      <% time_intervals.each do |interval| %>
+
+        <div class="badge text-bg-secondary  border border-dark">
+          <%= form.label :time, interval, style: "display: block" %>
+
+          <%= form.radio_button :time, interval, class: 'form-check-input ', style: 'width:20px; height:20px; ' %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form.submit %>
+  </div>
+  <script>
+      const transportDropdown = document.getElementById("reservation_transport_id");
+
+      transportDropdown.addEventListener("click", () => {
+          const transport_id = transportDropdown.options[transportDropdown.selectedIndex].value;
+          <%
+          reservations = Reservation.all.as_json
+
+          taken_reservations = reservations.map { |reservation| [reservation.to_h['transport_id'], reservation.to_h['time']]}
+          %>
+          const taken_reservations = <%= raw taken_reservations %>
+
+              taken_reservations.forEach((reservation) => {
+                  if (transport_id == reservation[0]) {
+                      options = document.getElementsByName('reservation[time]');
+                      options.forEach((option) => {
+                          option.disabled = option.value == reservation[1];
+                      })
+                  }
+              })
+      })
+
+  </script>
+
+<% end %>

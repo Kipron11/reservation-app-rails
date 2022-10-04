@@ -1,0 +1,47 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Reservations</h1>
+
+<div id="reservations">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>X</th>
+      <% @time_intervals.each do |interval| %>
+        <th> <%= interval %></th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @transports.each do |transport| %>
+      <tr>
+        <td>
+          <%= transport.name %>
+        </td>
+        <% @time_intervals.each do |interval| %>
+          <td>
+            <% transport.reservations.each do |reservation| %>
+              <% if reservation.time == interval %>
+                <%= button_to reservation.user.name, reservation, method: :delete, class: "btn btn-outline-danger" %>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<%= link_to "New reservation", new_reservation_path %>
+
+<!--  <td>-->
+
+<!--        </td>
+<%# user.reservations.each do |reservation| %>
+<%#= reservation.transport.as_json.to_h["name"] %>
+<%# end %>
