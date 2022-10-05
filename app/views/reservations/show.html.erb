@@ -1,10 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @reservation %>
+<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><b>Lietotajs</b> : <%= @reservation.user.name %></li>
+    <li class="list-group-item"><b>Transports</b> : <%= @reservation.transport.name %></li>
+    <li class="list-group-item"><b>Laiks</b> : <%= @reservation.time %></li>
+  </ul>
+</div>
+<br/>
 
 <div>
-  <%= link_to "Edit this reservation", edit_reservation_path(@reservation) %> |
-  <%= link_to "Back to reservations", reservations_path %>
+  <%= link_to "Izlabot rezervāciju", edit_reservation_path(@reservation) %> |
+  <%= link_to "Atpakaļ pie rezervācijam", reservations_path %>
 
-  <%= button_to "Destroy this reservation", @reservation, method: :delete %>
+  <%= button_to "Izdzēst šo rezervāciju", @reservation, method: :delete %>
 </div>

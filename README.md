@@ -1,24 +1,24 @@
-# README
+![GIF](/readmefiles/gifka.gif)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Reservation App
 
-Things you may want to cover:
+In this app you can reserve some transport for some time.
+The idea was to create user friendly interface which is simple and practical  
 
-* Ruby version
+Things I used in this application :
 
-* System dependencies
+* Ruby 3.1.2p20, Rails 7.0.4, HTML5, CSS3, JavaScript
 
-* Configuration
+* Scaffold
 
-* Database creation
+* Bootstrap
 
-* Database initialization
+* Sqlite3
 
-* How to run the test suite
+* HeidiSQL, RubyMine, Linux terminal in Windows
 
-* Services (job queues, cache servers, search engines, etc.)
+To run applications you need to download the repository and using Linux or Mac terminal write in
+````
+rails s
+````
 
-* Deployment instructions
-
-* ...
